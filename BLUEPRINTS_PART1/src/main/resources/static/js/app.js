@@ -2,6 +2,8 @@ var apiRest = apimock;
 var BlueprintModule = (function() {
   var _author;
   var _authorBlueprint = [];
+  var open = false;
+  
 
   var _mapNamePoints = function(blueprints) {
     return blueprints.map(function(blueprint) {
@@ -39,12 +41,22 @@ var BlueprintModule = (function() {
     });
   };
 
+  var _getCanvas= function(){
+    var c = document.getElementById("myCanvas");
+    return c;
+  }
+
+  var _clearCanvas= function(canvas){
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    return ctx;
+  }
+
   var _pintar = function(blueprint) {
     $("#tituloPlano").text("Current blueprint: " + blueprint.name);
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.clearRect(0, 0, c.width, c.height);
-    ctx.beginPath();
+    var c= _getCanvas();
+    var ctx = _clearCanvas(c);
     var anterior;
     blueprint.points.map(function(point) {
       if (!anterior) {
@@ -56,23 +68,58 @@ var BlueprintModule = (function() {
       }
     });
   };
+
+  var _getOffset=function (obj) {
+    var offsetLeft = 0;
+    var offsetTop = 0;
+    do {
+      if (!isNaN(obj.offsetLeft)) {
+          offsetLeft += obj.offsetLeft;
+      }
+      if (!isNaN(obj.offsetTop)) {
+          offsetTop += obj.offsetTop;
+      }   
+    } while(obj = obj.offsetParent );
+    return {left: offsetLeft, top: offsetTop};
+  } 
+
   var changeAuthorName = function(author) {
+    open= false;
     _author = author;
   };
-
+  
   var updateListPlans = function(author) {
     changeAuthorName(author);
     $("#blueprintAuthorName > h2").text(author + "'s blueprints: ");
+    _clearCanvas(_getCanvas());
     apiRest.getBlueprintsByAuthor(author, _genTable);
   };
+ 
 
   var openPlane = function(author, name) {
+    open = true;
     apiRest.getBlueprintsByNameAndAuthor(author, name, _pintar);
   };
+
+  var listenPointMouse = function (){
+    var canvas= _getCanvas();
+    var offset  = _getOffset(canvas);
+    if(window.PointerEvent) {
+      canvas.addEventListener("pointerdown", function(event){
+        if (open){
+          var x= event.pageX-parseInt(offset.left,10);
+          var y= event.pageY-parseInt(offset.top,10);
+          console.log('pointerdown at '+x+','+y);  
+        }
+      });
+    }
+  }
+  
 
   return {
     changeAuthorName: changeAuthorName,
     updateListPlans: updateListPlans,
-    openPlane: openPlane
+    openPlane: openPlane,
+    listenPointMouse: listenPointMouse
   };
 })();
