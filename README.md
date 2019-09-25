@@ -1,7 +1,7 @@
-# Laboratorio05 - ARSW
+# Laboratorio06 - ARSW
 
 ### Blueprint Management 3 - Heavy Client
-* Laboratorio05 [README.md](BLUEPRINTS_PART1/)
+* Laboratorio06 [README.md](BLUEPRINTS_PART1/)
 
 Integrantes:
 * [Cristian Lopez Arevalo](https://github.com/cdavidd)
