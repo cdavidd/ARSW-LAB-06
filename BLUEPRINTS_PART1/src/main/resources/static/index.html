@@ -51,6 +51,9 @@
       </div>
 
       <div style="float: right">
+        <button id="authBpButton" type="button" class="btn btn-primary">
+          Create new blueprint
+        </button>
         <h2 id="tituloPlano"></h2>
         <canvas
           id="myCanvas"
@@ -59,6 +62,19 @@
           style="border:1px solid #000000;"
         >
         </canvas>
+        <div>
+          <button
+            id="authBpButton"
+            type="button"
+            class="btn btn-primary"
+            onclick="BlueprintModule.savePoints()"
+          >
+            Save/Update
+          </button>
+          <button id="authBpButton" type="button" class="btn btn-primary">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </body>
