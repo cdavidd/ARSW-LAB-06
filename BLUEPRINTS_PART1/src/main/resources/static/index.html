@@ -51,9 +51,63 @@
       </div>
 
       <div style="float: right">
-        <button id="authBpButton" type="button" class="btn btn-primary">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
           Create new blueprint
         </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  New blueprint
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nameBlueprint"
+                      placeholder="name"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      onclick="BlueprintModule.newPlane(nameBlueprint.value)"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Titulo y canvas-->
         <h2 id="tituloPlano"></h2>
         <canvas
           id="myCanvas"

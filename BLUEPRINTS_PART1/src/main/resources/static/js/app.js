@@ -83,24 +83,6 @@ var BlueprintModule = (function() {
     return { left: offsetLeft, top: offsetTop };
   };
 
-  var changeAuthorName = function(author) {
-    _open = false;
-    _author = author;
-  };
-
-  var updateListPlans = function(author) {
-    changeAuthorName(author);
-    $("#blueprintAuthorName > h2").text(author + "'s blueprints: ");
-    _clearCanvas(_getCanvas());
-    apiRest.getBlueprintsByAuthor(author, _genTable);
-  };
-
-  var openPlane = function(author, name) {
-    _open = true;
-    _name = name;
-    apiRest.getBlueprintsByNameAndAuthor(author, _name, _pintar);
-  };
-
   var _repaint = function(event, canvas) {
     var offset = _getOffset(canvas);
     var x = event.pageX - parseInt(offset.left, 10);
@@ -112,7 +94,29 @@ var BlueprintModule = (function() {
     _pintar(plano);
   };
 
+  var changeAuthorName = function(author) {
+    console.log("changeAuthorName");
+    _open = false;
+    _author = author;
+  };
+
+  var updateListPlans = function(author) {
+    console.log("updateListPlans");
+    changeAuthorName(author);
+    $("#blueprintAuthorName > h2").text(author + "'s blueprints: ");
+    _clearCanvas(_getCanvas());
+    apiRest.getBlueprintsByAuthor(author, _genTable);
+  };
+
+  var openPlane = function(author, name) {
+    console.log("openPlane");
+    _open = true;
+    _name = name;
+    apiRest.getBlueprintsByNameAndAuthor(author, _name, _pintar);
+  };
+
   var listenPointMouse = function() {
+    console.log("listenPointMouse");
     var canvas = _getCanvas();
     var ctx = canvas.getContext("2d");
     if (window.PointerEvent) {
@@ -125,17 +129,28 @@ var BlueprintModule = (function() {
   };
 
   var savePoints = function() {
+    console.log("savePoints");
     var plano = _authorBlueprint.filter(obj => {
       return obj.name === _name;
     })[0];
     apiRest.setBlueprint(_author, _name, JSON.stringify(plano));
   };
 
+  var newPlane = function(name) {
+    console.log("newPlane");
+    var plano = {
+      author: _author,
+      points: [],
+      name: name
+    };
+    apiRest.setBlueprint(_author, _name, JSON.stringify(plano));
+  };
   return {
     changeAuthorName: changeAuthorName,
     updateListPlans: updateListPlans,
     openPlane: openPlane,
     listenPointMouse: listenPointMouse,
-    savePoints: savePoints
+    savePoints: savePoints,
+    newPlane: newPlane
   };
 })();
