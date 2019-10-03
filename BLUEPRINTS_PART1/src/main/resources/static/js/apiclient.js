@@ -26,6 +26,13 @@ apiclient = (function() {
         data: newBp,
         contentType: "application/json"
       });
+    },
+    deletePlane: function(author, name) {
+      $.ajax({
+        url: "/blueprints/" + author + "/" + name + "/",
+        type: "DELETE",
+        contentType: "application/json"
+      });
     }
   };
 })();

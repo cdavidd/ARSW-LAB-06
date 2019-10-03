@@ -145,12 +145,18 @@ var BlueprintModule = (function() {
     };
     apiRest.setBlueprint(_author, _name, JSON.stringify(plano));
   };
+
+  var deletePlane = function() {
+    apiRest.deletePlane(_author, _name);
+  };
+
   return {
     changeAuthorName: changeAuthorName,
     updateListPlans: updateListPlans,
     openPlane: openPlane,
     listenPointMouse: listenPointMouse,
     savePoints: savePoints,
-    newPlane: newPlane
+    newPlane: newPlane,
+    deletePlane: deletePlane
   };
 })();

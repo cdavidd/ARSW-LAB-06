@@ -23,50 +23,53 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BlueprintsServices {
-   
+
     @Autowired
     BlueprintsPersistence bpp = null;
 
-    
     /**
      * Metodo encargado de adicionar un nuevo BluePrint
+     * 
      * @param bp
-     * @throws BlueprintPersistenceException 
+     * @throws BlueprintPersistenceException
      */
-    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
         bpp.saveBlueprint(bp);
     }
-    
-        /**
+
+    /**
      * Metodo encargado de modificar o adicionar un nuevo BluePrint
+     * 
      * @param bp
      * @param author
      * @param name
-     * @throws BlueprintPersistenceException 
+     * @throws BlueprintPersistenceException
      */
-    public void modifyOrAddBlueprint(Blueprint bp, String author, String name) throws BlueprintPersistenceException{
+    public void modifyOrAddBlueprint(Blueprint bp, String author, String name) throws BlueprintPersistenceException {
         bpp.modifyOrAddBlueprintS(bp, author, name);
     }
+
     /**
      * Metodo encargado de traer todos los BluePrints
+     * 
      * @return Blueprint
-     * @throws BlueprintNotFoundException 
+     * @throws BlueprintNotFoundException
      */
-    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException{
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
         return bpp.getAllBluePrint();
     }
-    
+
     /**
      * 
      * @param author blueprint's author
-     * @param name blueprint's name
+     * @param name   blueprint's name
      * @return the blueprint of the given name created by the given author
      * @throws BlueprintNotFoundException if there is no such blueprint
      */
-    public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
-        return bpp.getBlueprint(author , name);
+    public Blueprint getBlueprint(String author, String name) throws BlueprintNotFoundException {
+        return bpp.getBlueprint(author, name);
     }
-    
+
     /**
      * 
      * @param author blueprint's author
@@ -75,6 +78,10 @@ public class BlueprintsServices {
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
         return bpp.getBlueprintByAuthor(author);
+    }
+
+    public void deletePlante(String author, String name) throws BlueprintNotFoundException {
+        bpp.deletePlante(author, name);
     }
 
 }
