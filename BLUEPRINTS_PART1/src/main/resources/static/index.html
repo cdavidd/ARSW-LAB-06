@@ -76,7 +76,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">
                   New blueprint
                 </h5>
-                <button
+                <button id = "closeBtn"
                   type="button"
                   class="close"
                   data-dismiss="modal"
@@ -89,17 +89,19 @@
                 <form>
                   <div class="form-group">
                     <input
-                      type="text"
+                            id="nameBlueprint"
+
+                            type="text"
                       class="form-control"
-                      id="nameBlueprint"
                       placeholder="name"
                     />
+                    <br/>
                     <button
                       type="button"
                       class="btn btn-primary"
                       onclick="BlueprintModule.newPlane(nameBlueprint.value)"
                     >
-                      Submit
+                      Create
                     </button>
                   </div>
                 </form>
@@ -118,17 +120,17 @@
         </canvas>
         <div>
           <button
-            id="authBpButton"
+            id="authBpButtonSave"
             type="button"
-            class="btn btn-primary"
+            class="btn btn-success"
             onclick="BlueprintModule.savePoints()"
           >
             Save/Update
           </button>
           <button
-            id="authBpButton"
+            id="authBpButtonDelete"
             type="button"
-            class="btn btn-primary"
+            class="btn btn-danger"
             onclick="BlueprintModule.deletePlane()"
           >
             Delete

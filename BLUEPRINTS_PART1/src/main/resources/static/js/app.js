@@ -91,6 +91,7 @@ var BlueprintModule = (function() {
       return obj.name === _name;
     })[0];
     plano.points.push({ x: x, y: y });
+    console.log(plano);
     _pintar(plano);
   };
 
@@ -138,6 +139,8 @@ var BlueprintModule = (function() {
 
   var newPlane = function(name) {
     console.log("newPlane");
+    $('#closeBtn').click();
+    $('#nameBlueprint').val("");
     var plano = {
       author: _author,
       points: [],
@@ -147,6 +150,7 @@ var BlueprintModule = (function() {
   };
 
   var deletePlane = function() {
+    $("#tituloPlano").text("Current blueprint: ")
     apiRest.deletePlane(_author, _name);
   };
 

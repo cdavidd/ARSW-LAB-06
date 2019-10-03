@@ -47,7 +47,8 @@ apiclient = (function() {
 
       putPromise.then(
         function() {
-          console.info("OK setBlueprint");
+          BlueprintModule.updateListPlans(author);
+          BlueprintModule.openPlane(author,name);
         },
         function() {
           console.info("ERROR setBlueprint");
@@ -63,6 +64,7 @@ apiclient = (function() {
 
       delPromise.then(
         function() {
+          BlueprintModule.updateListPlans(author);
           console.info("OK deletePlane");
         },
         function() {
