@@ -2,6 +2,7 @@ var apiRest = apiclient;
 var BlueprintModule = (function() {
   var _author;
   var _authorBlueprint = [];
+  var _totalBlueprints = 0;
   var _open = false;
   var _name;
 
@@ -19,6 +20,9 @@ var BlueprintModule = (function() {
   };
 
   var _genTable = function(blueprints) {
+    changeAuthorName(blueprints[0].author);
+    _totalBlueprints = blueprints.length;
+    $("#blueprintAuthorName > h2").text(_author + "'s blueprints: ");
     _authorBlueprint = blueprints;
     blueprints = _mapNamePoints(_authorBlueprint);
     _sumPoints(blueprints);
@@ -106,8 +110,6 @@ var BlueprintModule = (function() {
   };
 
   var updateListPlans = function(author) {
-    changeAuthorName(author);
-    $("#blueprintAuthorName > h2").text(author + "'s blueprints: ");
     _clearCanvas(_getCanvas());
     apiRest.getBlueprintsByAuthor(author, _genTable);
   };
@@ -150,7 +152,12 @@ var BlueprintModule = (function() {
 
   var deletePlane = function() {
     $("#tituloPlano").text("Current blueprint: ");
-    apiRest.deletePlane(_author, _name);
+    if (_totalBlueprints > 1){
+      apiRest.deletePlane(_author, _name);
+    }
+    else{
+      alert("No se puede eliminar todos los planos");
+    }
   };
 
   return {
