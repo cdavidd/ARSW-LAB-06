@@ -53,12 +53,17 @@ var BlueprintModule = (function() {
     return ctx;
   };
 
-  var _pintar = function(blueprint) {
-    $("#tituloPlano").text("Current blueprint: " + blueprint.name);
+  var _pintar = function(plano) {
+    _authorBlueprint.filter(obj => {
+      if (obj.name === plano.name) {
+        obj.points = plano.points;
+      }
+    });
+    $("#tituloPlano").text("Current blueprint: " + plano.name);
     var c = _getCanvas();
     var ctx = _clearCanvas(c);
     var anterior;
-    blueprint.points.map(function(point) {
+    plano.points.map(function(point) {
       if (!anterior) {
         anterior = point;
         ctx.moveTo(anterior.x, anterior.y);
@@ -96,13 +101,11 @@ var BlueprintModule = (function() {
   };
 
   var changeAuthorName = function(author) {
-    console.log("changeAuthorName");
     _open = false;
     _author = author;
   };
 
   var updateListPlans = function(author) {
-    console.log("updateListPlans");
     changeAuthorName(author);
     $("#blueprintAuthorName > h2").text(author + "'s blueprints: ");
     _clearCanvas(_getCanvas());
@@ -110,14 +113,12 @@ var BlueprintModule = (function() {
   };
 
   var openPlane = function(author, name) {
-    console.log("openPlane");
     _open = true;
     _name = name;
     apiRest.getBlueprintsByNameAndAuthor(author, _name, _pintar);
   };
 
   var listenPointMouse = function() {
-    console.log("listenPointMouse");
     var canvas = _getCanvas();
     var ctx = canvas.getContext("2d");
     if (window.PointerEvent) {
@@ -130,7 +131,6 @@ var BlueprintModule = (function() {
   };
 
   var savePoints = function() {
-    console.log("savePoints");
     var plano = _authorBlueprint.filter(obj => {
       return obj.name === _name;
     })[0];
@@ -138,9 +138,8 @@ var BlueprintModule = (function() {
   };
 
   var newPlane = function(name) {
-    console.log("newPlane");
-    $('#closeBtn').click();
-    $('#nameBlueprint').val("");
+    $("#closeBtn").click();
+    $("#nameBlueprint").val("");
     var plano = {
       author: _author,
       points: [],
@@ -150,7 +149,7 @@ var BlueprintModule = (function() {
   };
 
   var deletePlane = function() {
-    $("#tituloPlano").text("Current blueprint: ")
+    $("#tituloPlano").text("Current blueprint: ");
     apiRest.deletePlane(_author, _name);
   };
 

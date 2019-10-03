@@ -48,7 +48,9 @@ apiclient = (function() {
       putPromise.then(
         function() {
           BlueprintModule.updateListPlans(author);
-          BlueprintModule.openPlane(author,name);
+          if (name) {
+            BlueprintModule.openPlane(author, name);
+          }
         },
         function() {
           console.info("ERROR setBlueprint");
