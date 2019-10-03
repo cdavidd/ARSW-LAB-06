@@ -30,6 +30,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 	compile group: 'org.webjars', name: 'webjars-locator', version: '0.14'
     compile group: 'org.webjars', name: 'bootstrap', version: '4.1.2'
